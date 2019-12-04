@@ -11,8 +11,8 @@
     <description>ez-boot 业务包</description>
 
     <parent>
-        <groupId>com.david</groupId>
-        <artifactId>ezboot</artifactId>
+        <groupId>com.ezboot</groupId>
+        <artifactId>ezboot-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
