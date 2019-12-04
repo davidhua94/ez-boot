@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @date 2019-08-03 21:41
  * 基本状态码
  * 其他模块可继承这个
+ * TODO 业务异常code应该与Http状态码分开
  */
 public abstract class MessageCode implements Serializable {
     public static final Integer SUCCESS = 200;
