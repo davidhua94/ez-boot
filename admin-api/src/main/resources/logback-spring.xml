@@ -90,13 +90,13 @@
     </root>
 
     <springProfile name="dev">
-        <logger name="com.david" level="debug" additivity="false">
+        <logger name="com.ezboot" level="debug" additivity="false">
             <appender-ref ref="CONSOLE" />
         </logger>
     </springProfile>
 
     <springProfile name="pro">
-        <logger name="com.david" level="info" additivity="false">
+        <logger name="com.ezboot" level="info" additivity="false">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="INFO_FILE" />
             <appender-ref ref="ERROR_FILE" />
