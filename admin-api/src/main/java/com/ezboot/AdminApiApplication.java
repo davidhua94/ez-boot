@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.ezboot")
-@EntityScan(basePackages = "com.david")
+@EntityScan(basePackages = "com.ezboot")
 public class AdminApiApplication {
 
     public static void main(String[] args) {
