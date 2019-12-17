@@ -4,6 +4,7 @@ import com.ezboot.core.CurrentAdmin;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.GsonUtil;
 import com.ezboot.core.util.JedisUtil;
+import com.ezboot.core.util.MD5Helper;
 import com.ezboot.core.util.UUIDGenerator;
 import com.ezboot.system.admin.constant.AdminCode;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
+
+    private static final String ADMIN_PASSWORD_PREFIX = "EZ-Boot";
 
     @Autowired
     private AdminRepository adminRepository;
@@ -66,11 +69,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     * TODO 数据库密码加密
-     * @param password 加密后的密码
+     * @param password 加密前的密码
+     * @return 加密后的密码
      */
     private String encryptPwd(String password) {
-        return password;
+        String formatPwd = String.format("%s%s", ADMIN_PASSWORD_PREFIX, password);
+        return MD5Helper.md5(formatPwd);
     }
 
 }

@@ -35,16 +35,15 @@ public class GlobalExceptionHandler {
         ApiResult apiResult;
         if (t instanceof ServiceException) {
             ServiceException serviceException = (ServiceException) t;
-            int code = ((ServiceException) t).getCode();
-            String message = t.getMessage();
+            int code = serviceException.getCode();
+            String message = serviceException.getMessage();
 
-            apiResult = ApiResult.error(serviceException.getCode(), serviceException.getMessage());
             if (StringUtils.isBlank(message)) {
                 String codeStr = String.valueOf(code);
                 message = messageUtil.getMessage(codeStr);
-                apiResult = ApiResult.error(code, message);
             }
-            log.error("Something wrong, [code ={}, message={}]", apiResult.getCode(), apiResult.getMessage());
+            apiResult = ApiResult.error(code, message);
+//            log.error("Something wrong, [code ={}, message={}]", apiResult.getCode(), apiResult.getMessage());
         } else {
             // 其他异常
             apiResult = ApiResult.error(MessageCode.INTERNAL_SERVER_ERROR,
@@ -53,6 +52,10 @@ public class GlobalExceptionHandler {
             log.error("Error: ", t);
         }
 
+        /**
+         * 如果是抛出异常时，通过这里设置requestId
+         * 正常情况下通过com.ezboot.aspect.TraceIdAspect设置requestId
+         */
         if (StringUtils.isBlank(apiResult.getRequestId())) {
             apiResult.setRequestId(GlobalConstants.traceIdThreadLocal.get());
         }

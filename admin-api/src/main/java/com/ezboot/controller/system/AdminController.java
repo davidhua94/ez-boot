@@ -33,6 +33,9 @@ public class AdminController {
      */
     @PostMapping("/login")
     public ApiResult login(@RequestBody AdminLoginDTO loginRequest) {
+        /**
+         * TODO errorMessage换成国际化
+         */
         ValidateUtil.notBlank(loginRequest.getUsername(), "username can't be empty");
         ValidateUtil.notBlank(loginRequest.getPassword(), "password can't be empty");
 

@@ -23,3 +23,7 @@ insert  into `t_system_role`(`id`,`role_name`,`description`,`enabled`,`create_na
 (5,'开发','developer',1,'system','2019-11-17 02:45:46','system','2019-11-17 02:45:46'),
 (6,'test-role','10',1,'test1','2019-11-17 03:55:22','test1','2019-11-17 03:55:22'),
 (7,'test-rol222e','10',1,'test1','2019-11-17 03:56:42','test1','2019-11-17 03:56:42');
+
+-- 添加默认管理员  admin/123456
+INSERT INTO t_system_admin(username, `password`, enabled, create_name,update_name)
+VALUES ('admin','61c097dcf6dd72c1f8d18b56c55002f3',1,'auto','auto')
