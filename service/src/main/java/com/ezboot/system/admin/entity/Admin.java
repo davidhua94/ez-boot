@@ -7,13 +7,15 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @author wang
  */
 @Data
-@Entity(name = "t_system_admin")
+@Entity
+@Table(name = "t_system_admin")
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 public class Admin extends UpdatedEntity {

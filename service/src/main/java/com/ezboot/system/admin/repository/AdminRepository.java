@@ -2,7 +2,12 @@ package com.ezboot.system.admin.repository;
 
 import com.ezboot.system.admin.entity.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
 
 /**
  * @author wang
@@ -27,4 +32,9 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
     Admin findByUsername(String username);
 
 
+    @Modifying
+    @Query("UPDATE Admin a SET a.lastLoginIp=:lastLoginIp,a.lastLoginTime=:now,a.updateTime=:now where a.id=:id")
+    int updateLoginStatus(@Param("id") Integer id,
+                          @Param("lastLoginIp") String lastLoginIp,
+                          @Param("now") Date now);
 }

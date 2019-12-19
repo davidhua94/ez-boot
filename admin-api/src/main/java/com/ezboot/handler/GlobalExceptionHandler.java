@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
             // 其他异常
             apiResult = ApiResult.error(MessageCode.INTERNAL_SERVER_ERROR,
                     messageUtil.getMessage(MessageCode.INTERNAL_SERVER_ERROR.toString()));
-            log.error("Something wrong, [code ={}, message={}]", apiResult.getCode(), apiResult.getMessage());
+            log.error("Something wrong, [code={}, message={}]", apiResult.getCode(), apiResult.getMessage());
             log.error("Error: ", t);
         }
 
