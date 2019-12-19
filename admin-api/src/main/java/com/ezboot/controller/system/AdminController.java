@@ -6,6 +6,8 @@ import com.ezboot.core.util.JedisUtil;
 import com.ezboot.core.util.ValidateUtil;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.service.AdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @author
  * hao
  */
+@Api
 @Slf4j
 @RestController
 @RequestMapping("/admin")
@@ -32,6 +35,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation(value = "管理员登陆")
     public ApiResult login(@RequestBody AdminLoginDTO loginRequest) {
         /**
          * TODO errorMessage换成国际化
