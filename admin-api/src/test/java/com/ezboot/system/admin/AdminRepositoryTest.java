@@ -1,7 +1,7 @@
 package com.ezboot.system.admin;
 
 
-import com.ezboot.ManagementApplicationTests;
+import com.ezboot.AdminApiApplicationTests;
 import com.ezboot.system.admin.entity.Admin;
 import com.ezboot.system.admin.repository.AdminRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Slf4j
-public class AdminRepositoryTest extends ManagementApplicationTests {
+public class AdminRepositoryTest extends AdminApiApplicationTests {
 
     @Autowired
     private AdminRepository adminRepository;

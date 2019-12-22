@@ -1,6 +1,6 @@
 package com.ezboot.system.repository;
 
-import com.ezboot.ManagementApplicationTests;
+import com.ezboot.AdminApiApplicationTests;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.service.AdminService;
 import com.ezboot.system.role.entity.Role;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-public class RoleRepositoryTest extends ManagementApplicationTests {
+public class RoleRepositoryTest extends AdminApiApplicationTests {
 
     @Autowired
     private RoleRepository roleRepository;

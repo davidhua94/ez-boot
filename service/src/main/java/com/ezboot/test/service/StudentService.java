@@ -15,4 +15,6 @@ public interface StudentService {
     void update(Student student);
 
     void delete(Student student);
+
+    void testTransaction();
 }
