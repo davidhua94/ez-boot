@@ -53,7 +53,7 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
-          const token = response.data.data
+          const token = response.data
           commit('SET_TOKEN', token)
           setToken(token)
           resolve()
@@ -67,7 +67,7 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
-          const data = response.data.data
+          const data = response.data
 
           if (data.perms && data.perms.length > 0) { // 验证返回的perms是否是一个非空数组
             commit('SET_PERMS', data.perms)

@@ -68,10 +68,10 @@ export default {
   },
   created() {
     info().then(response => {
-      this.userTotal = response.data.data.userTotal
-      this.goodsTotal = response.data.data.goodsTotal
-      this.productTotal = response.data.data.productTotal
-      this.orderTotal = response.data.data.orderTotal
+      this.userTotal = response.data.userTotal
+      this.goodsTotal = response.data.goodsTotal
+      this.productTotal = response.data.productTotal
+      this.orderTotal = response.data.orderTotal
     })
   },
   methods: {

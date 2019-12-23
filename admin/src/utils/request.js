@@ -52,14 +52,14 @@ service.interceptors.response.use(
         return Promise.reject('error')
       }
       debugger
-      
+
       MessageBox.alert(res.message, '错误', {
         confirmButtonText: '确定',
         type: 'error'
       })
       return Promise.reject('error')
     } else {
-      return response
+      return res
     }
 
     // if (res.code === 501) {

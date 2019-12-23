@@ -10,9 +10,9 @@
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="正在查询中。。。" border fit highlight-current-row>
-      <el-table-column align="center" label="角色名称" prop="name" sortable/>
+      <el-table-column align="center" label="角色名称" prop="roleName" sortable/>
 
-      <el-table-column align="center" label="说明" prop="desc"/>
+      <el-table-column align="center" label="说明" prop="description"/>
 
       <el-table-column align="center" label="操作" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -78,10 +78,10 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
+        pageSize: 20,
         name: undefined,
-        sort: 'add_time',
-        order: 'desc'
+        sortField: 'create_time',
+        sortType: 'desc'
       },
       dataForm: {
         id: undefined,
@@ -116,8 +116,9 @@ export default {
       this.listLoading = true
       listRole(this.listQuery)
         .then(response => {
-          this.list = response.data.data.list
-          this.total = response.data.data.total
+          debugger
+          this.list = response.data.data
+          this.total = response.data.totalCount
           this.listLoading = false
         })
         .catch(() => {

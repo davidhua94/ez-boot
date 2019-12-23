@@ -18,7 +18,10 @@ export function logout() {
     method: 'post'
   })
 }
-
+/**
+ * todo 移除token参数,后端此时可以直接从header中取
+ * @param {} token
+ */
 export function getUserInfo(token) {
   return request({
     url: '/admin/info',

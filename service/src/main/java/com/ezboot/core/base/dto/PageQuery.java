@@ -14,7 +14,7 @@ public class PageQuery extends AbstractDTO {
     /**
      * default value: 1
      */
-    private Integer pageIndex = 1;
+    private Integer page = 1;
 
     /**
      * default value: 10

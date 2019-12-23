@@ -104,7 +104,7 @@ export default {
           }).catch(response => {
             this.$notify.error({
               title: '失败',
-              message: response.data.message
+              message: response.message
             })
             this.loading = false
           })

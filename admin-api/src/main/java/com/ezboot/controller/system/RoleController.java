@@ -21,7 +21,7 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping("/list")
-    public ApiResult<PageResult<Role>> list(@RequestBody RoleListQueryDTO pageQuery) {
+    public ApiResult<PageResult<Role>> list(RoleListQueryDTO pageQuery) {
         PageResult<Role> rolePageResult = roleService.pageList(pageQuery);
         return ApiResult.success(rolePageResult);
     }

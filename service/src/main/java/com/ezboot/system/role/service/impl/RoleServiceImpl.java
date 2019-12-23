@@ -49,7 +49,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 
     @Override
     public PageResult<Role> pageList(RoleListQueryDTO pageQuery) {
-        Pageable pageable = PageRequest.of(pageQuery.getPageIndex() - 1, pageQuery.getPageSize());
+        Pageable pageable = PageRequest.of(pageQuery.getPage() - 1, pageQuery.getPageSize());
         Page<Role> rolePage = roleRepository.findAll((Specification<Role>) (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             // TODO 查询条件
@@ -66,7 +66,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
         /**
          * TODO 转化成DTO返回, 实际不能将entity返回给web层
          */
-        PageResult<Role> result = PageResult.<Role>builder().currentPage(pageQuery.getPageIndex())
+        PageResult<Role> result = PageResult.<Role>builder().currentPage(pageQuery.getPage())
                         .pageSize(pageQuery.getPageSize())
                         .totalCount((int)rolePage.getTotalElements())
                         .totalPage(rolePage.getTotalPages())

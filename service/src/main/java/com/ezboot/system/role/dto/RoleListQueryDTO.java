@@ -1,6 +1,6 @@
 package com.ezboot.system.role.dto;
 
-import com.ezboot.core.base.dto.PageQuery;
+import com.ezboot.core.base.dto.SortedQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,6 +10,6 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RoleListQueryDTO extends PageQuery {
+public class RoleListQueryDTO extends SortedQuery {
     private String name;
 }

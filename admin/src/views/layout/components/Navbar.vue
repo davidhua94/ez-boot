@@ -29,11 +29,12 @@
               首页
             </el-dropdown-item>
           </router-link>
-          <!-- <el-dropdown-item divided>
-            <a target="_blank" href="https://github.com/linlinjava/litemall">
+          <el-dropdown-item divided>
+            <a target="_blank" href="https://github.com/davidhua94/ez-boot">
               GitHub
             </a>
           </el-dropdown-item>
+          <!--
           <el-dropdown-item>
             <a target="_blank" href="https://gitee.com/linlinjava/litemall">
               码云
