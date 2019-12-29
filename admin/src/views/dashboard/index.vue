@@ -47,23 +47,54 @@
         </div>
       </el-col>
     </el-row>
+
+    <el-row style="display: none;">
+      <el-col>
+        <div class="components-container board">
+          <Kanban :key="1" :list="todoList" :group="group" class="kanban todo" header-text="Todo" />
+          <Kanban :key="2" :list="doingList" :group="group" class="kanban working" header-text="Working" />
+          <Kanban :key="3" :list="doneList" :group="group" class="kanban done" header-text="Done" />
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import { info } from '@/api/dashboard'
+import Kanban from '@/components/Kanban'
+
 import CountTo from 'vue-count-to'
 
 export default {
   components: {
-    CountTo
+    CountTo,
+    Kanban
   },
   data() {
     return {
       userTotal: 0,
       goodsTotal: 0,
       productTotal: 0,
-      orderTotal: 0
+      orderTotal: 0,
+
+      group: 'mission',
+      todoList: [
+        { name: 'Mission', id: 1 },
+        { name: 'Mission', id: 2 },
+        { name: 'Mission', id: 3 },
+        { name: 'Mission', id: 4 }
+      ],
+      doingList: [
+        { name: 'Mission', id: 5 },
+        { name: 'Mission', id: 6 },
+        { name: 'Mission', id: 7 }
+      ],
+      doneList: [
+        { name: 'Mission', id: 8 },
+        { name: 'Mission', id: 9 },
+        { name: 'Mission', id: 10 }
+      ]
     }
   },
   created() {
@@ -163,6 +194,32 @@ export default {
       .card-panel-num {
         font-size: 20px;
       }
+    }
+  }
+}
+// 看板相关
+.board {
+  width: 1000px;
+  margin-left: -18px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.kanban {
+  &.todo {
+    .board-column-header {
+      background: #4A9FF9;
+    }
+  }
+  &.working {
+    .board-column-header {
+      background: #f9944a;
+    }
+  }
+  &.done {
+    .board-column-header {
+      background: #2ac06d;
     }
   }
 }
