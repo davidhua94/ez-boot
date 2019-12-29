@@ -9,8 +9,8 @@
     </div>
 
     <!-- 查询结果 -->
-    <el-table v-loading="listLoading" :data="list" element-loading-text="正在查询中。。。" border fit highlight-current-row>
-      <el-table-column align="center" label="角色名称" prop="roleName" sortable/>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="正在查询中。。。" border fit highlight-current-row @sort-change="sortChange">
+      <el-table-column align="center" label="角色名称" prop="roleName" sortable="custom"/>
 
       <el-table-column align="center" label="说明" prop="description"/>
 
@@ -23,7 +23,7 @@
       <el-table-column align="center" label="操作" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-permission="['POST /admin/role/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button v-permission="['POST /admin/role/delete']" type="danger" size="mini" @click="handleDelete(scope.row.id)">删除</el-button>
+          <el-button v-permission="['GET /admin/role/delete']" type="danger" size="mini" @click="handleDelete(scope.row.id)">删除</el-button>
           <!--          <el-button v-permission="['GET /admin/role/permissions']" type="primary" size="mini" @click="handlePermission(scope.row)">授权</el-button>-->
         </template>
       </el-table-column>
@@ -139,6 +139,10 @@ export default {
           this.total = 0
           this.listLoading = false
         })
+    },
+    sortChange(column) {
+      /* todo 排序*/
+      console.log(column)
     },
     handleFilter() {
       this.listQuery.page = 1
