@@ -24,6 +24,10 @@ import Layout from '@/views/layout/Layout'
     noCache: true                if true ,the page will no be cached(default is false)
   }
 **/
+/**
+ * 固定的路由, 与权限无关
+ * @type {({path: string, component, hidden: boolean, children: [{path: string, component: function(): *}]}|{path: string, component: (function(): *), hidden: boolean}|{path: string, component: (function(): *), hidden: boolean}|{path: string, component: (function(): *), hidden: boolean}|{path: string, component: (function(): *), hidden: boolean})[]}
+ */
 export const constantRouterMap = [
   {
     path: '/redirect',
@@ -76,7 +80,10 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
-
+/**
+ * 跟权限相关的动态路由
+ * @type {({redirect: string, path: string, component, children: [{path: string, component: function(): *, meta: {noCache: boolean, perms: [string, string, string, string], title: string}, name: string}, {path: string, component: function(): *, meta: {noCache: boolean, perms, title: string}, name: string}, {path: string, component: function(): *, meta: {noCache: boolean, perms: [string], title: string}, name: string}], meta: {icon: string, title: string}, name: string, alwaysShow: boolean}|{redirect: string, path: string, component, hidden: boolean, children: [{path: string, component: function(): *, meta: {noCache: boolean, title: string}, name: string}], alwaysShow: boolean}|{redirect: string, path: string, hidden: boolean})[]}
+ */
 export const asyncRouterMap = [
   /**
    * 先去掉不需要的, 按需打开注释
@@ -586,7 +593,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'admin',
-        component: () => import('@/views/sys/admin'),
+        component: () => import('@/views/system/admin'),
         name: 'admin',
         meta: {
           perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
@@ -596,11 +603,21 @@ export const asyncRouterMap = [
       },
       {
         path: 'role',
-        component: () => import('@/views/sys/role'),
+        component: () => import('@/views/system/role'),
         name: 'role',
         meta: {
           perms: ['GET /admin/role/list', 'POST /admin/role/create', 'POST /admin/role/update', 'POST /admin/role/delete', 'GET /admin/role/permissions', 'POST /admin/role/permissions'],
           title: '角色管理',
+          noCache: true
+        }
+      },
+      {
+        path: 'menu',
+        component: () => import('@/views/system/menu'),
+        name: 'menu',
+        meta: {
+          perms: ['GET /system/menu/list', 'POST /system/menu/create', 'POST /system/menu/update', 'POST /system/menu/delete'],
+          title: '菜单管理',
           noCache: true
         }
       },
@@ -616,11 +633,21 @@ export const asyncRouterMap = [
       // },
       {
         path: 'log',
-        component: () => import('@/views/sys/log'),
+        component: () => import('@/views/system/log'),
         name: 'log',
         meta: {
           perms: ['GET /admin/log/list'],
           title: '操作日志',
+          noCache: true
+        }
+      },
+      {
+        path: 'job',
+        component: () => import('@/views/system/job'),
+        name: 'job',
+        meta: {
+          perms: ['GET /system/job/list'],
+          title: '定时任务',
           noCache: true
         }
       }

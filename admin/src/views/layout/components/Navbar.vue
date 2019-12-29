@@ -34,6 +34,11 @@
               GitHub
             </a>
           </el-dropdown-item>
+          <el-dropdown-item divided>
+            <a target="_blank" href="https://github.com/davidhua94/ez-boot">
+              接口文档
+            </a>
+          </el-dropdown-item>
           <!--
           <el-dropdown-item>
             <a target="_blank" href="https://gitee.com/linlinjava/litemall">
