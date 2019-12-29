@@ -9,6 +9,7 @@ import redis.clients.jedis.JedisPool;
 /**
  * @author David hua
  * @date 2019-08-18 21:45
+ * TODO 去掉,不用jedis,改成spring对redis的支持
  */
 @Slf4j
 public class JedisUtil {
