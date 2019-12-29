@@ -10,7 +10,7 @@ export function listRole(query) {
 
 export function createRole(data) {
   return request({
-    url: '/role/create',
+    url: '/role/save',
     method: 'post',
     data
   })
@@ -26,17 +26,16 @@ export function readRole(data) {
 
 export function updateRole(data) {
   return request({
-    url: '/role/update',
+    url: '/role/edit',
     method: 'post',
     data
   })
 }
 
-export function deleteRole(data) {
+export function deleteRole(id) {
   return request({
-    url: '/role/delete',
-    method: 'post',
-    data
+    url: '/role/delete/' + id,
+    method: 'get'
   })
 }
 

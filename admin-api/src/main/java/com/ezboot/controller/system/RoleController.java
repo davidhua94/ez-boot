@@ -26,16 +26,26 @@ public class RoleController {
         return ApiResult.success(rolePageResult);
     }
 
-    @PostMapping("")
+    @GetMapping("/{id}")
+    public ApiResult<Role> getById(@PathVariable("id") Integer id) {
+        return ApiResult.success(roleService.getById(id, Role.class));
+    }
+
+    @PostMapping("/save")
     public ApiResult addRole(@RequestBody RoleDTO roleDTO) {
         roleService.save(roleDTO);
-
         return ApiResult.success();
     }
 
-    @PutMapping("")
+    @PostMapping("/edit")
     public ApiResult editRole(@RequestBody RoleDTO roleDTO) {
         roleService.update(roleDTO);
+        return ApiResult.success();
+    }
+
+    @GetMapping("delete/{id}")
+    public ApiResult deleteRole(@PathVariable("id") Integer id) {
+        roleService.delete(id, Role.class);
 
         return ApiResult.success();
     }

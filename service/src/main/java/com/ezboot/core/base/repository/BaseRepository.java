@@ -1,9 +1,10 @@
 package com.ezboot.core.base.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
 /**
@@ -13,21 +14,24 @@ import java.io.Serializable;
 @Repository
 public class BaseRepository<T> {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional(rollbackFor = Exception.class)
     public void save(T entity) {
         entityManager.persist(entity);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void update(T entity) {
-        entityManager.refresh(entity);
+        entityManager.merge(entity);
     }
 
     public <T> T getById(Class<T> clazz, Serializable id) {
         return entityManager.find(clazz, id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Serializable id, Class<T> clazz) {
         T existEntity = getById(clazz, id);
         if (existEntity != null) {
@@ -35,6 +39,7 @@ public class BaseRepository<T> {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void delete(T entity) {
         entityManager.remove(entity);
     }
