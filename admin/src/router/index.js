@@ -610,17 +610,17 @@ export const asyncRouterMap = [
           title: '角色管理',
           noCache: true
         }
-      },
-      {
-        path: 'menu',
-        component: () => import('@/views/system/menu'),
-        name: 'menu',
-        meta: {
-          perms: ['GET /system/menu/list', 'POST /system/menu/create', 'POST /system/menu/update', 'POST /system/menu/delete'],
-          title: '菜单管理',
-          noCache: true
-        }
-      },
+      }
+      // {
+      //   path: 'menu',
+      //   component: () => import('@/views/system/menu'),
+      //   name: 'menu',
+      //   meta: {
+      //     perms: ['GET /system/menu/list', 'POST /system/menu/create', 'POST /system/menu/update', 'POST /system/menu/delete'],
+      //     title: '菜单管理',
+      //     noCache: true
+      //   }
+      // },
       // {
       //   path: 'permission',
       //   component: () => import('@/views/sys/role'),
@@ -631,26 +631,26 @@ export const asyncRouterMap = [
       //     noCache: true
       //   }
       // },
-      {
-        path: 'log',
-        component: () => import('@/views/system/log'),
-        name: 'log',
-        meta: {
-          perms: ['GET /admin/log/list'],
-          title: '操作日志',
-          noCache: true
-        }
-      },
-      {
-        path: 'job',
-        component: () => import('@/views/system/job'),
-        name: 'job',
-        meta: {
-          perms: ['GET /system/job/list'],
-          title: '定时任务',
-          noCache: true
-        }
-      }
+      // {
+      //   path: 'log',
+      //   component: () => import('@/views/system/log'),
+      //   name: 'log',
+      //   meta: {
+      //     perms: ['GET /admin/log/list'],
+      //     title: '操作日志',
+      //     noCache: true
+      //   }
+      // },
+      // {
+      //   path: 'job',
+      //   component: () => import('@/views/system/job'),
+      //   name: 'job',
+      //   meta: {
+      //     perms: ['GET /system/job/list'],
+      //     title: '定时任务',
+      //     noCache: true
+      //   }
+      // }
     ]
   },
   {
