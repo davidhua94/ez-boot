@@ -2,34 +2,50 @@ package com.ezboot.system.admin.service.impl;
 
 import com.ezboot.core.CurrentAdmin;
 import com.ezboot.core.WebContext;
+import com.ezboot.core.base.PageResult;
+import com.ezboot.core.base.service.impl.BaseServiceImpl;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.GsonUtil;
 import com.ezboot.core.util.JedisUtil;
 import com.ezboot.core.util.MD5Helper;
 import com.ezboot.core.util.UUIDGenerator;
 import com.ezboot.system.admin.constant.AdminCode;
+import com.ezboot.system.admin.dto.AdminListDTO;
+import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.entity.Admin;
 import com.ezboot.system.admin.exception.LoginException;
 import com.ezboot.system.admin.repository.AdminRepository;
 import com.ezboot.system.admin.service.AdminService;
+import com.ezboot.system.role.repository.RoleRepository;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author wang
  */
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
 
     private static final String ADMIN_PASSWORD_PREFIX = "EZ-Boot";
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public Admin findAdminByUsernameAndPassword(String username, String password) {
@@ -71,6 +87,38 @@ public class AdminServiceImpl implements AdminService {
         JedisUtil.setExpire(token, GlobalConstants.ADMIN_TOKEN_EXPIRE);
 
         return token;
+    }
+
+    @Override
+    public PageResult<AdminListDTO> pageList(AdminListQueryDTO queryDTO) {
+        Pageable pageable = buildPageRequest(queryDTO);
+        Page<Admin> adminPage = adminRepository.findAll((Specification<Admin>) (root, query, criteriaBuilder) -> {
+            List<Predicate> list = new ArrayList<>();
+            // TODO 添加查询条件
+            if (StringUtils.isNotBlank(queryDTO.getUsername())) {
+                Predicate roleNamePredicate = criteriaBuilder.like(root.get("username").as(String.class),
+                        "%" + queryDTO.getUsername() + "%");
+                list.add(roleNamePredicate);
+            }
+
+            Predicate[] p = new Predicate[list.size()];
+            return criteriaBuilder.and(list.toArray(p));
+        },pageable);
+
+        List<AdminListDTO> dataList = convertToDTO(adminPage.getContent());
+
+        return PageResult.<AdminListDTO>builder().data(dataList).totalCount((int)adminPage.getTotalElements()).build();
+    }
+
+    private List<AdminListDTO> convertToDTO(List<Admin> content) {
+        List<AdminListDTO> result = Lists.newArrayList();
+        content.forEach(entity -> {
+            AdminListDTO dto = new AdminListDTO();
+            BeanUtils.copyProperties(entity, dto);
+            dto.setRoleList(roleRepository.findRoleNameListByAdminId(entity.getId()));
+            result.add(dto);
+        });
+        return result;
     }
 
     /**

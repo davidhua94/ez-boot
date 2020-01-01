@@ -1,12 +1,16 @@
 package com.ezboot.system.admin.service;
 
+import com.ezboot.core.base.PageResult;
+import com.ezboot.core.base.service.BaseService;
+import com.ezboot.system.admin.dto.AdminListDTO;
+import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.entity.Admin;
 
 /**
  * @author wang
  */
-public interface AdminService{
+public interface AdminService extends BaseService<Admin> {
 
     Admin findAdminByUsernameAndPassword(String username, String password);
 
@@ -20,4 +24,6 @@ public interface AdminService{
      * @return token
      */
     String login(AdminLoginDTO loginRequest);
+
+    PageResult<AdminListDTO> pageList(AdminListQueryDTO queryDTO);
 }

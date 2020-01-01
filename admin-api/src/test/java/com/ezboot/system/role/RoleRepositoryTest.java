@@ -1,14 +1,17 @@
-package com.ezboot.system.repository;
+package com.ezboot.system.role;
 
 import com.ezboot.AdminApiApplicationTests;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.service.AdminService;
 import com.ezboot.system.role.entity.Role;
 import com.ezboot.system.role.repository.RoleRepository;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 public class RoleRepositoryTest extends AdminApiApplicationTests {
@@ -20,10 +23,11 @@ public class RoleRepositoryTest extends AdminApiApplicationTests {
     private AdminService adminService;
 
     @Before
+    @Ignore
     public void login() {
         AdminLoginDTO adminLoginDTO = new AdminLoginDTO();
-        adminLoginDTO.setUsername("test1");
-        adminLoginDTO.setPassword("test1");
+        adminLoginDTO.setUsername("admin");
+        adminLoginDTO.setPassword("123456");
         adminService.login(adminLoginDTO);
     }
 
@@ -45,5 +49,11 @@ public class RoleRepositoryTest extends AdminApiApplicationTests {
         Role role = byId.get();
         role.setEnabled(false);
         roleRepository.save(role);
+    }
+
+    @Test
+    public void testGetRoleNameByAdminId() {
+        List<String> roleNameListByAdminId = roleRepository.findRoleNameListByAdminId(2);
+        Assert.assertNotNull(roleNameListByAdminId);
     }
 }

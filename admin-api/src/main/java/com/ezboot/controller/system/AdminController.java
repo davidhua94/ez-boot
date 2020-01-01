@@ -1,9 +1,12 @@
 package com.ezboot.controller.system;
 
 import com.ezboot.core.ApiResult;
+import com.ezboot.core.base.PageResult;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.JedisUtil;
 import com.ezboot.core.util.ValidateUtil;
+import com.ezboot.system.admin.dto.AdminListDTO;
+import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.service.AdminService;
 import io.swagger.annotations.Api;
@@ -69,6 +72,12 @@ public class AdminController {
         data.put("perms", "*");
         data.put("roles", "admin");
         return ApiResult.success(data);
+    }
+
+    @GetMapping("/list")
+    public ApiResult list(AdminListQueryDTO queryDTO) {
+        PageResult<AdminListDTO> adminListDTOPageResult = adminService.pageList(queryDTO);
+        return ApiResult.success(adminListDTOPageResult);
     }
 
 
