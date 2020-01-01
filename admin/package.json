@@ -1,8 +1,8 @@
 {
-  "name": "litemall-admin",
-  "version": "0.1.0",
-  "description": "litemall-admin basing on vue-element-admin 3.9.3",
-  "author": "linlinjava <linlinjava@163.com>",
+  "name": "ezboot-admin",
+  "version": "1.0.0",
+  "description": "ezboot-admin basing on vue-element-admin 3.9.3",
+  "author": "davidhua <huakang1994@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {

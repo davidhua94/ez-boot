@@ -95,7 +95,7 @@ export default {
         sortField: 'create_time',
         sortType: 'desc'
       },
-      statusDic: { true: '可用', false: '禁用' },
+      statusDic: { true: '启用', false: '禁用' },
       dataForm: {
         id: undefined,
         roleName: undefined,

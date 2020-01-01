@@ -51,7 +51,6 @@ service.interceptors.response.use(
         })
         return Promise.reject('error')
       }
-      debugger
 
       MessageBox.alert(res.message, '错误', {
         confirmButtonText: '确定',
