@@ -36,7 +36,11 @@ public class WebContext {
      * @return
      */
     public static String getHeaderValue(String headName) {
-        return getCurrentRequest().getHeader(headName);
+        return getHeaderValue(headName, getCurrentRequest());
+    }
+
+    public static String getHeaderValue(String headName, HttpServletRequest request) {
+        return request.getHeader(headName);
     }
 
     /**
