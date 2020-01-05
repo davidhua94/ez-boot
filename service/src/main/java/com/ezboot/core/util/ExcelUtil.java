@@ -1,7 +1,6 @@
 package com.ezboot.core.util;
 
 import com.ezboot.system.admin.entity.Admin;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -9,7 +8,6 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.awt.Color;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
