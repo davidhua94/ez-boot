@@ -8,11 +8,11 @@ import com.ezboot.core.base.MessageCode;
  * 管理员相关code 100开头
  */
 public class AdminCode extends MessageCode {
-    public static final int USERNAME_NOT_EXIST = 10001;
-    public static final int USERNAME_LOCKED = 10002;
-    public static final int USERNAME_PASSWORD_UN_MATCH = 10003;
+    public static final String USERNAME_NOT_EXIST = "10001";
+    public static final String USERNAME_LOCKED = "10002";
+    public static final String USERNAME_PASSWORD_UN_MATCH = "10003";
 
 
-    public static final int USER_NOT_LOGIN = 10004;
+    public static final String ADMIN_NOT_LOGIN = "10004";
 
 }

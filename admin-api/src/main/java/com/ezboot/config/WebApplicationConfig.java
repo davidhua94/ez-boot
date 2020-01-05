@@ -2,6 +2,7 @@ package com.ezboot.config;
 
 import com.ezboot.core.CurrentAdminArgumentResolver;
 import com.ezboot.interceptor.AdminTokenInterceptor;
+import com.ezboot.interceptor.AuthInterceptor;
 import com.ezboot.interceptor.TraceIdInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +26,15 @@ public class WebApplicationConfig implements WebMvcConfigurer {
     private AdminTokenInterceptor adminTokenInterceptor;
 
     @Autowired
+    private AuthInterceptor authInterceptor;
+
+    @Autowired
     private CurrentAdminArgumentResolver currentAdminArgumentResolver;
 
+    /**
+     * 拦截器顺序写  traceId-->验证是否登陆-->验证是否有权限
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 这个顺序在最前面
@@ -35,6 +43,11 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         // token拦截
         registry.addInterceptor(adminTokenInterceptor)
                 .addPathPatterns("/**")
+                .excludePathPatterns("/admin/login")
+                .excludePathPatterns("/admin/info")
+                .excludePathPatterns("/admin/logout");
+
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/admin/login")
                 .excludePathPatterns("/admin/info")
                 .excludePathPatterns("/admin/logout");

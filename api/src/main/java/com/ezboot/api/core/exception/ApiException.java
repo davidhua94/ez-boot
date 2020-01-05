@@ -9,11 +9,11 @@ import com.ezboot.core.exception.ServiceException;
  */
 public class ApiException extends ServiceException {
 
-    public ApiException(int code) {
+    public ApiException(String code) {
         super(code);
     }
 
-    public ApiException(int code, String message) {
+    public ApiException(String code, String message) {
         super(code, message);
     }
 }

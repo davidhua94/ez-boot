@@ -1,6 +1,7 @@
 package com.ezboot.controller;
 
 import com.ezboot.core.ApiResult;
+import com.ezboot.core.annotation.HasPermission;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public class IndexController {
     /**
      * 首页数据
      */
+    @HasPermission(needPermission = "dashboard")
     @GetMapping("/dashboard")
     public ApiResult dashboard() {
         Map<String, Integer> dataMap = new HashMap<>();

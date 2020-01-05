@@ -8,13 +8,16 @@ import java.io.Serializable;
  * 基本状态码
  * 其他模块可继承这个
  * TODO 业务异常code应该与Http状态码分开
+ * 0开头的是系统基础异常
  */
 public abstract class MessageCode implements Serializable {
-    public static final Integer SUCCESS = 200;
-    public static final Integer INVALID_PARAMS = 400;
-    public static final Integer UNAUTHORIZED = 401;
-    public static final Integer NOT_FOUND = 404;
-    public static final Integer INTERNAL_SERVER_ERROR = 500;
+    public static final String SUCCESS = "200";
+    public static final String INVALID_PARAMS = "400";
+    public static final String UNAUTHORIZED = "401";
+    public static final String NOT_FOUND = "404";
+    public static final String INTERNAL_SERVER_ERROR = "500";
+
+    public static final String ACCESS_DENIED = "00001";
 
     /**
      * 其余按模块分配

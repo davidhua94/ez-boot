@@ -19,6 +19,7 @@ import com.ezboot.system.admin.repository.AdminRepository;
 import com.ezboot.system.admin.service.AdminService;
 import com.ezboot.system.role.repository.RoleRepository;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,9 +78,11 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         // 更新上次登陆时间、登陆ip
         adminRepository.updateLoginStatus(admin.getId(), WebContext.getRequestIp(), Calendar.getInstance().getTime());
 
-        // TODO 查出当前用户的角色、权限等信息
+
         CurrentAdmin currentUser = new CurrentAdmin();
         BeanUtils.copyProperties(admin, currentUser);
+        // TODO 从数据库获取当前用户的权限
+        currentUser.setPermissions(Sets.newHashSet("*"));
 
         String token = UUIDGenerator.randomUUID();
         // 默认30分钟

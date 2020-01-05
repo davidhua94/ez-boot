@@ -39,8 +39,8 @@ service.interceptors.response.use(
       return Promise.reject('error')
     }
 
-    if (res.code !== 200) {
-      if (res.code === 10004) {
+    if (res.code !== '200') {
+      if (res.code === '10004') {
         MessageBox.alert(res.message, '错误', {
           confirmButtonText: '确定',
           type: 'error'
@@ -56,7 +56,7 @@ service.interceptors.response.use(
         confirmButtonText: '确定',
         type: 'error'
       })
-      return Promise.reject('error')
+      return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res
     }

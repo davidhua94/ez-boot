@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author David hua
  * @date 2019-08-16 22:01
- * 管理后台TOKEN拦截
+ * 管理后台TOKEN拦截, 即登陆状态拦截
  */
 @Component
 public class AdminTokenInterceptor extends HandlerInterceptorAdapter {
@@ -24,12 +24,12 @@ public class AdminTokenInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader(GlobalConstants.ADMIN_TOKEN_KEY);
         if (StringUtils.isBlank(token)) {
-            throw new LoginException(AdminCode.USER_NOT_LOGIN);
+            throw new LoginException(AdminCode.ADMIN_NOT_LOGIN);
         }
 
         String userInfoStr = JedisUtil.get(token);
         if (StringUtils.isBlank(userInfoStr)) {
-            throw new LoginException(AdminCode.USER_NOT_LOGIN);
+            throw new LoginException(AdminCode.ADMIN_NOT_LOGIN);
         }
 
         return true;

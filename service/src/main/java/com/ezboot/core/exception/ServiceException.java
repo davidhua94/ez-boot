@@ -9,14 +9,14 @@ import lombok.Getter;
  */
 @Getter
 public class ServiceException extends RuntimeException {
-    protected int code;
+    protected String code;
     protected String message;
 
-    public ServiceException(int code) {
+    public ServiceException(String code) {
         this.code = code;
     }
 
-    public ServiceException(int code, String message) {
+    public ServiceException(String code, String message) {
         super(message);
         this.code = code;
         this.message = message;

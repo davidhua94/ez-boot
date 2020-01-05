@@ -35,19 +35,18 @@ public class GlobalExceptionHandler {
         ApiResult apiResult;
         if (t instanceof ServiceException) {
             ServiceException serviceException = (ServiceException) t;
-            int code = serviceException.getCode();
+            String code = serviceException.getCode();
             String message = serviceException.getMessage();
 
             if (StringUtils.isBlank(message)) {
-                String codeStr = String.valueOf(code);
-                message = messageUtil.getMessage(codeStr);
+                message = messageUtil.getMessage(code);
             }
             apiResult = ApiResult.error(code, message);
 //            log.error("Something wrong, [code ={}, message={}]", apiResult.getCode(), apiResult.getMessage());
         } else {
             // 其他异常
             apiResult = ApiResult.error(MessageCode.INTERNAL_SERVER_ERROR,
-                    messageUtil.getMessage(MessageCode.INTERNAL_SERVER_ERROR.toString()));
+                    messageUtil.getMessage(MessageCode.INTERNAL_SERVER_ERROR));
             log.error("Something wrong, [code={}, message={}]", apiResult.getCode(), apiResult.getMessage());
             log.error("Error: ", t);
         }
