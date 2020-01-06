@@ -1,6 +1,7 @@
 package com.ezboot.controller.system;
 
 import com.ezboot.core.ApiResult;
+import com.ezboot.core.LocalMessage;
 import com.ezboot.core.base.PageResult;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.JedisUtil;
@@ -32,6 +33,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private LocalMessage localMessage;
+
     /**
      * 管理员登陆
      * @param loginRequest
@@ -40,11 +44,8 @@ public class AdminController {
     @PostMapping("/login")
     @ApiOperation(value = "管理员登陆")
     public ApiResult login(@RequestBody AdminLoginDTO loginRequest) {
-        /**
-         * TODO errorMessage换成国际化
-         */
-        ValidateUtil.notBlank(loginRequest.getUsername(), "username can't be empty");
-        ValidateUtil.notBlank(loginRequest.getPassword(), "password can't be empty");
+        ValidateUtil.notBlank(loginRequest.getUsername(), localMessage.getMessage("MESS_USERNAME_NOT_BLANK"));
+        ValidateUtil.notBlank(loginRequest.getPassword(), localMessage.getMessage("MESS_PASSWORD_NOT_BLANK"));
 
         String token = adminService.login(loginRequest);
 
@@ -76,8 +77,8 @@ public class AdminController {
 
     @GetMapping("/list")
     public ApiResult list(AdminListQueryDTO queryDTO) {
-        PageResult<AdminListDTO> adminListDTOPageResult = adminService.pageList(queryDTO);
-        return ApiResult.success(adminListDTOPageResult);
+        PageResult<AdminListDTO> adminList = adminService.pageList(queryDTO);
+        return ApiResult.success(adminList);
     }
 
 
