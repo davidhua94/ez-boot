@@ -74,4 +74,9 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
                         .build();
         return result;
     }
+
+    @Override
+    public List<Integer> getRoleIdsByAdminId(Integer id) {
+        return roleRepository.findRoleIdsByAdminId(id);
+    }
 }

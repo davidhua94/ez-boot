@@ -17,7 +17,9 @@ import com.ezboot.system.admin.entity.Admin;
 import com.ezboot.system.admin.exception.LoginException;
 import com.ezboot.system.admin.repository.AdminRepository;
 import com.ezboot.system.admin.service.AdminService;
+import com.ezboot.system.permission.service.PermissionService;
 import com.ezboot.system.role.repository.RoleRepository;
+import com.ezboot.system.role.service.RoleService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,7 @@ import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author wang
@@ -48,18 +51,14 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public Admin findAdminByUsernameAndPassword(String username, String password) {
-        return adminRepository.findAdminByUsernameAndPassword(username,password);
-    }
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Override
-    public Admin findAdminById(Integer id) {
-        return null;
-    }
-
-    @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String login(AdminLoginDTO loginRequest) {
         Admin admin = adminRepository.findByUsername(loginRequest.getUsername());
         if (admin == null) {
@@ -81,8 +80,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 
         CurrentAdmin currentUser = new CurrentAdmin();
         BeanUtils.copyProperties(admin, currentUser);
-        // TODO 从数据库获取当前用户的权限
         currentUser.setPermissions(Sets.newHashSet("*"));
+        // 数据库有数据之后放开
+//        currentUser.setPermissions(this.getPermissions(admin.getId()));
 
         String token = UUIDGenerator.randomUUID();
         // 默认30分钟
@@ -92,16 +92,28 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         return token;
     }
 
+    /**
+     * 从数据库获得此管理员所有权限
+     */
+    @Override
+    public Set<String> getPermissions(Integer adminId) {
+        List<Integer> roleIds = roleService.getRoleIdsByAdminId(adminId);
+        if (roleIds == null || roleIds.isEmpty()) {
+            return Sets.newHashSet();
+        }
+
+        return permissionService.getPermissions(roleIds);
+    }
+
     @Override
     public PageResult<AdminListDTO> pageList(AdminListQueryDTO queryDTO) {
         Pageable pageable = buildPageRequest(queryDTO);
         Page<Admin> adminPage = adminRepository.findAll((Specification<Admin>) (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
-            // TODO 添加查询条件
             if (StringUtils.isNotBlank(queryDTO.getUsername())) {
-                Predicate roleNamePredicate = criteriaBuilder.like(root.get("username").as(String.class),
+                Predicate usernamePredicate = criteriaBuilder.like(root.get("username").as(String.class),
                         "%" + queryDTO.getUsername() + "%");
-                list.add(roleNamePredicate);
+                list.add(usernamePredicate);
             }
 
             Predicate[] p = new Predicate[list.size()];

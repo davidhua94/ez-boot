@@ -7,16 +7,12 @@ import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
 import com.ezboot.system.admin.entity.Admin;
 
+import java.util.Set;
+
 /**
  * @author wang
  */
 public interface AdminService extends BaseService<Admin> {
-
-    Admin findAdminByUsernameAndPassword(String username, String password);
-
-    // void updateAdminById(Admin admin);
-
-    Admin findAdminById(Integer id);
 
     /**
      * 管理员登陆
@@ -26,4 +22,6 @@ public interface AdminService extends BaseService<Admin> {
     String login(AdminLoginDTO loginRequest);
 
     PageResult<AdminListDTO> pageList(AdminListQueryDTO queryDTO);
+
+    Set<String> getPermissions(Integer adminId);
 }
