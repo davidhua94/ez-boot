@@ -83,23 +83,19 @@
         </encoder>
     </appender>
 
-    <root level="info">
-        <appender-ref ref="CONSOLE" />
-        <!--<appender-ref ref="INFO_FILE" />-->
-        <!--<appender-ref ref="ERROR_FILE" />-->
-    </root>
-
-    <springProfile name="dev">
-        <logger name="com.ezboot" level="debug" additivity="false">
+    <!-- 非生产环境只需要DEBUG, 输出到控制台就行 -->
+    <springProfile name="!prod">
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE" />
-        </logger>
+        </root>
     </springProfile>
 
-    <springProfile name="pro">
-        <logger name="com.ezboot" level="info" additivity="false">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="INFO_FILE" />
-            <appender-ref ref="ERROR_FILE" />
-        </logger>
+    <!-- 生产环境只需要INFO 和 Error, 输出到控制台和文件里 -->
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
     </springProfile>
 </configuration>
