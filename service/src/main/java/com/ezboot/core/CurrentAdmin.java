@@ -17,6 +17,8 @@ import java.util.Set;
 public class CurrentAdmin implements Serializable {
     private String username;
 
+    private String avatar;
+
     private Set<String> permissions;
 
     private Set<String> roles;
