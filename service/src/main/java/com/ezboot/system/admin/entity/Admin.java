@@ -3,7 +3,6 @@ package com.ezboot.system.admin.entity;
 import com.ezboot.core.base.entity.UpdatedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import java.util.Date;
 @Entity
 @Table(name = "t_system_admin")
 @EqualsAndHashCode(callSuper = false)
-@DynamicUpdate
 public class Admin extends UpdatedEntity {
 
     @Column(name = "username")

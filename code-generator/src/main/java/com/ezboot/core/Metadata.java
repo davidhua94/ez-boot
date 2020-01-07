@@ -25,7 +25,7 @@ public class Metadata {
     /**
      * 列数据
      */
-    public List<ColumnMetadata> columnList;
+    private List<ColumnMetadata> columnList;
 
     @Data
     public static class ColumnMetadata {
@@ -48,5 +48,26 @@ public class Metadata {
          * 列注释
          */
         private String columnComment;
+    }
+
+    public ExtendEntityType getExtendEntity() {
+        if (columnList == null || columnList.isEmpty()) {
+            throw new RuntimeException("");
+        }
+
+        // 最基本的表 继承IdEntity
+        ExtendEntityType result = ExtendEntityType.ID_ENTITY;
+        for (ColumnMetadata columnMetadata:columnList) {
+            // 如果这个表有create_name这一列，则继承CreatedEntity
+            if ("create_name".equals(columnMetadata.getColumnName())) {
+                result = ExtendEntityType.CREATE_ENTITY;
+            }
+
+            // 如果这个表有update_name这一列，则继承CreatedEntity
+            if ("update_name".equals(columnMetadata.getColumnName())) {
+                result = ExtendEntityType.UPDATE_ENTITY;
+            }
+        }
+        return result;
     }
 }

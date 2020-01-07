@@ -2,6 +2,7 @@ package com.ezboot.core;
 
 import lombok.Getter;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -10,7 +11,6 @@ import java.util.ResourceBundle;
  */
 @Getter
 public class Config {
-//    private static final String DEFAULT_CONFIG_PATH = "classpath:generate.properties";
     private static final String DEFAULT_CONFIG_PATH = "generate";
 
     private String jdbcUrl;
@@ -20,6 +20,12 @@ public class Config {
     private String password;
 
     private String driverClass;
+
+    private String basePackage;
+
+    private String dbTablePrefix;
+
+    private List<GeneratorType> generatorTypes;
 
     public Config() {
         this(DEFAULT_CONFIG_PATH);
@@ -32,5 +38,7 @@ public class Config {
         this.jdbcUser = resource.getString("jdbc.username");
         this.password = resource.getString("jdbc.password");
         this.driverClass = resource.getString("jdbc.driverClass");
+        this.basePackage = resource.getString("basePackage");
+        this.dbTablePrefix = resource.getString("dbTablePrefix");
     }
 }
