@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author David hua
@@ -14,9 +15,9 @@ import javax.persistence.Entity;
  * 定时任务实体
  */
 @Data
+@Entity
+@Table(name = "t_system_timetask")
 @EqualsAndHashCode(callSuper = false)
-@ToString
-@Entity(name = "t_system_timetask")
 public class TimeTask extends UpdatedEntity {
 
     @Column(name = "task_name")
@@ -33,4 +34,7 @@ public class TimeTask extends UpdatedEntity {
 
     @Column(name = "started")
     private boolean started;
+
+    @Column(name = "server")
+    private String server;
 }
