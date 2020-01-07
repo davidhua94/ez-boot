@@ -139,3 +139,8 @@ CREATE TABLE `t_system_timetask` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+/* 添加字段 */
+alter table t_system_timetask
+add column server varchar(32) not null comment 'job执行的server'
+after cron_expression;
