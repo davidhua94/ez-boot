@@ -1,6 +1,5 @@
 package com.ezboot.core.job;
 
-import com.ezboot.core.ApplicationContextUtil;
 import com.ezboot.system.timetask.entity.TimeTask;
 import com.ezboot.system.timetask.service.TimeTaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,10 +30,15 @@ public class JobInitializer {
     @Autowired
     private TimeTaskService taskService;
 
+    /**
+     * 应用启动时加载所有状态为enable的job
+     * @throws ClassNotFoundException
+     * @throws SchedulerException
+     */
     public void init() throws ClassNotFoundException, SchedulerException {
         List<TimeTask> enabledTaskByServer = taskService.getEnabledTaskByServer(currentServer);
         if (CollectionUtils.isEmpty(enabledTaskByServer)) {
-            log.info("No job need to be loaded , current server : {}", currentServer);
+            log.warn("No job need to be loaded , current server : {}", currentServer);
             return;
         }
 

@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-08-16 22:01
  * 此拦截器设置traceId, 排在最前面
  * 方便追踪问题
+ *
+ * TODO 由于MDC是ThreadLocal实现的 子线程使用MDC.get取不到值
+ * 尽量通过new CustomThread创建线程
+ * 后续 添加CustomRunnable,CustomCallable, CustomThreadFactory支持
+ *
+ * @see com.ezboot.core.thread.CustomThread
  */
 @Component
 public class TraceIdInterceptor extends HandlerInterceptorAdapter {
