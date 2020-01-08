@@ -28,6 +28,6 @@ public class TimeTaskServiceImpl extends BaseServiceImpl<TimeTask> implements Ti
 
     @Override
     public List<TimeTask> getEnabledTaskByServer(String server) {
-        return null;
+        return timeTaskRepository.findAllByServerAndEnabledIsTrue(server);
     }
 }

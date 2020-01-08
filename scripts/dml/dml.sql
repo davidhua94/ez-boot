@@ -27,3 +27,7 @@ insert  into `t_system_role`(`id`,`role_name`,`description`,`enabled`,`create_na
 -- 添加默认管理员  admin/123456
 INSERT INTO t_system_admin(username, `password`, enabled, create_name,update_name)
 VALUES ('admin','61c097dcf6dd72c1f8d18b56c55002f3',1,'auto','auto')
+
+-- 添加测试job
+insert into t_system_timetask(task_name,task_class_name,cron_expression,server,enabled,started,create_name,create_time,update_name,update_time)
+VALUES ('testjob','com.ezboot.test.job.LogJob','0/2 * * * * ?','dev-server',1,1,'',now(),'',now())

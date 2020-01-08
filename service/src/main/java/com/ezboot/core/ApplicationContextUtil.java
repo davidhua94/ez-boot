@@ -1,5 +1,6 @@
 package com.ezboot.core;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -21,5 +22,9 @@ public class ApplicationContextUtil implements ApplicationContextAware {
 
     public static Object getBean(String beanName) {
         return applicationContext.getBean(beanName);
+    }
+
+    public static<T> T getBean(Class<T> clazz) {
+        return applicationContext.getBean(clazz);
     }
 }

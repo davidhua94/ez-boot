@@ -18,4 +18,6 @@ public interface TimeTaskRepository extends JpaRepository<TimeTask, Integer> {
      * @return
      */
     List<TimeTask> getAllByEnabledIsTrue();
+
+    List<TimeTask> findAllByServerAndEnabledIsTrue(String server);
 }
