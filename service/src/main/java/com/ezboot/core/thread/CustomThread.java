@@ -16,6 +16,10 @@ public class CustomThread extends Thread {
 
     private transient final Map<String, String> contextMap = MDC.getCopyOfContextMap();
 
+    public CustomThread() {
+        super();
+    }
+
     public CustomThread (Runnable runnable) {
         super(runnable);
     }
