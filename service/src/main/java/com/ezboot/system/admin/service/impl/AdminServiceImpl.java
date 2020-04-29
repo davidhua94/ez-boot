@@ -145,4 +145,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         return MD5Helper.md5(formatPwd);
     }
 
+    public static void main(String[] args) {
+        String pwd = "123456";
+        String formatPwd = String.format("%s%s", ADMIN_PASSWORD_PREFIX, pwd);
+        System.out.println(MD5Helper.md5(formatPwd));
+    }
+
 }

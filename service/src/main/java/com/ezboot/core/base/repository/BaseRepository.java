@@ -18,10 +18,12 @@ public class BaseRepository<T> {
     private EntityManager entityManager;
 
 
+    @Transactional(rollbackFor = Exception.class)
     public void save(T entity) {
         entityManager.persist(entity);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void update(T entity) {
         entityManager.merge(entity);
     }
@@ -30,13 +32,13 @@ public class BaseRepository<T> {
         return entityManager.find(clazz, id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Serializable id, Class<T> clazz) {
         T existEntity = getById(clazz, id);
         if (existEntity != null) {
             delete(existEntity);
         }
     }
-
     private void delete(T entity) {
         entityManager.remove(entity);
     }

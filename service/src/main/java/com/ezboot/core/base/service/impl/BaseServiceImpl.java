@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author David hua
@@ -22,13 +21,11 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     private BaseRepository baseRepository;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void save(T entity) {
         baseRepository.save(entity);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void update(T entity) {
         baseRepository.update(entity);
     }
@@ -39,7 +36,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void delete(Integer id, Class<T> clazz) {
         baseRepository.deleteById(id, clazz);
     }

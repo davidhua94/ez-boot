@@ -1,7 +1,9 @@
 package com.ezboot.core.util;
 
 import com.ezboot.core.ApplicationContextUtil;
+import com.ezboot.core.base.MessageCode;
 import com.ezboot.core.config.RedisConfig;
+import com.ezboot.core.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -34,12 +36,12 @@ public class JedisUtil {
             return "ok".equals(ret);
         } catch (Exception e) {
             log.error("JedisUtil put() failed, error: {}", e.getMessage());
+            throw new ServiceException(MessageCode.INTERNAL_SERVER_ERROR);
         } finally {
             if (jedis != null) {
                 jedis.close();
             }
         }
-        return false;
     }
 
     public static boolean put(String key, String val) {
