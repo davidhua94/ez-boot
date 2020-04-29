@@ -8,6 +8,9 @@ import com.ezboot.core.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,8 +30,7 @@ public class GlobalExceptionHandler {
     private LocalMessage messageUtil;
 
     @ExceptionHandler(value = Throwable.class)
-    public ApiResult handleException(HttpServletRequest request, HttpServletResponse response,
-                                     Throwable t) {
+    public ApiResult handleException(Throwable t) {
         /**
          * todo  记录错误日志到数据库
          */
@@ -52,12 +54,30 @@ public class GlobalExceptionHandler {
         }
 
         /**
-         * 如果是抛出异常时，通过这里设置requestId
+         * 如果是抛出异常时, 通过这里设置requestId
          * 正常情况下通过com.ezboot.aspect.TraceIdAspect设置requestId
          */
         if (StringUtils.isBlank(apiResult.getRequestId())) {
             apiResult.setRequestId(GlobalConstants.traceIdThreadLocal.get());
         }
         return apiResult;
+    }
+
+    /**
+     * 参数校验失败
+     */
+    @ExceptionHandler(value = {BindException.class})
+    public ApiResult handleBindException(BindException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        return ApiResult.error(MessageCode.INVALID_PARAMS, bindingResult.getFieldError().getDefaultMessage());
+    }
+
+    /**
+     * 参数校验失败
+     */
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ApiResult handleMethodArgumentException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        return ApiResult.error(MessageCode.INVALID_PARAMS, bindingResult.getFieldError().getDefaultMessage());
     }
 }
