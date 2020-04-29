@@ -6,7 +6,7 @@ import com.ezboot.core.annotation.RequiresPermission;
 import com.ezboot.core.base.PageResult;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.JedisUtil;
-import com.ezboot.core.util.ValidateUtil;
+import com.ezboot.core.util.Assert;
 import com.ezboot.system.admin.dto.AdminListDTO;
 import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
@@ -45,8 +45,8 @@ public class AdminController {
     @PostMapping("/login")
     @ApiOperation(value = "管理员登陆")
     public ApiResult login(@RequestBody AdminLoginDTO loginRequest) {
-        ValidateUtil.notBlank(loginRequest.getUsername(), localMessage.getMessage("MESS_USERNAME_NOT_BLANK"));
-        ValidateUtil.notBlank(loginRequest.getPassword(), localMessage.getMessage("MESS_PASSWORD_NOT_BLANK"));
+        Assert.notBlank(loginRequest.getUsername(), localMessage.getMessage("MESS_USERNAME_NOT_BLANK"));
+        Assert.notBlank(loginRequest.getPassword(), localMessage.getMessage("MESS_PASSWORD_NOT_BLANK"));
 
         String token = adminService.login(loginRequest);
 
@@ -78,7 +78,7 @@ public class AdminController {
 
     @GetMapping("/list")
     @RequiresPermission("system:admin:list")
-    public ApiResult list(AdminListQueryDTO queryDTO) {
+    public ApiResult<PageResult<AdminListDTO>> list(AdminListQueryDTO queryDTO) {
         PageResult<AdminListDTO> adminList = adminService.pageList(queryDTO);
         return ApiResult.success(adminList);
     }

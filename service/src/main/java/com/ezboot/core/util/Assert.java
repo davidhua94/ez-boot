@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2019-08-16 23:22
  * 简单参数校验
  */
-public class ValidateUtil {
+public class Assert {
     public static void notBlank(String obj, String errMsg) {
         if (StringUtils.isBlank(obj)) {
             throw new InvalidParamException(errMsg);

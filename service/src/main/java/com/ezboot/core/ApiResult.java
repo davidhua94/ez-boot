@@ -59,7 +59,7 @@ public class ApiResult<T> implements Serializable {
         return new ApiResult(code, false, message);
     }
 
-    public static <T> ApiResult success(T data) {
+    public static <T> ApiResult<T> success(T data) {
         return new ApiResult<T>(MessageCode.SUCCESS, true, "Success", data);
     }
 }
