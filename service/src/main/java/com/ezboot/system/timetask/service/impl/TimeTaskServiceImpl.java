@@ -9,6 +9,8 @@ import com.ezboot.system.timetask.service.TimeTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author David hua
  * @date 2019-12-29 22:33:40
@@ -22,5 +24,10 @@ public class TimeTaskServiceImpl extends BaseServiceImpl<TimeTask> implements Ti
     public PageResult<TimeTask> pageList(TimetaskListQueryDTO queryDTO) {
 
         return null;
+    }
+
+    @Override
+    public List<TimeTask> getEnabledTaskByServer(String server) {
+        return timeTaskRepository.findAllByServerAndEnabledIsTrue(server);
     }
 }

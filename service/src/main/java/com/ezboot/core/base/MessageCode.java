@@ -11,18 +11,18 @@ import java.io.Serializable;
  * 0开头的是系统基础异常
  */
 public abstract class MessageCode implements Serializable {
-    public static final String SUCCESS = "200";
-    public static final String INVALID_PARAMS = "400";
+    public static final String SUCCESS = "00000";
+    public static final String INVALID_PARAMS = "40000";
     public static final String UNAUTHORIZED = "401";
     public static final String NOT_FOUND = "404";
-    public static final String INTERNAL_SERVER_ERROR = "500";
+    public static final String INTERNAL_SERVER_ERROR = "99999";
 
     public static final String ACCESS_DENIED = "00001";
 
     /**
      * 其余按模块分配
-     * 10001
-     * 10 代表system
+     * A0001
+     * A 代表system
      * 0代表admin
      * 1代表role
      * 01 代表具体的错误

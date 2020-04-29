@@ -1,7 +1,7 @@
 package com.ezboot.controller.system;
 
 import com.ezboot.core.ApiResult;
-import com.ezboot.core.annotation.HasPermission;
+import com.ezboot.core.annotation.RequiresPermission;
 import com.ezboot.core.base.PageResult;
 import com.ezboot.system.role.dto.RoleDTO;
 import com.ezboot.system.role.dto.RoleListQueryDTO;
@@ -22,34 +22,34 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping("/list")
-    @HasPermission(needPermission = "system:role:list")
+    @RequiresPermission("system:role:list")
     public ApiResult<PageResult<Role>> list(RoleListQueryDTO pageQuery) {
         PageResult<Role> rolePageResult = roleService.pageList(pageQuery);
         return ApiResult.success(rolePageResult);
     }
 
     @GetMapping("/{id}")
-    @HasPermission(needPermission = "system:role:read")
+    @RequiresPermission("system:role:read")
     public ApiResult<Role> getById(@PathVariable("id") Integer id) {
         return ApiResult.success(roleService.getById(id, Role.class));
     }
 
     @PostMapping("/save")
-    @HasPermission(needPermission = "system:role:create")
+    @RequiresPermission("system:role:create")
     public ApiResult addRole(@RequestBody RoleDTO roleDTO) {
         roleService.save(roleDTO);
         return ApiResult.success();
     }
 
     @PostMapping("/edit")
-    @HasPermission(needPermission = "system:role:update")
+    @RequiresPermission("system:role:update")
     public ApiResult editRole(@RequestBody RoleDTO roleDTO) {
         roleService.update(roleDTO);
         return ApiResult.success();
     }
 
     @GetMapping("delete/{id}")
-    @HasPermission(needPermission = "system:role:delete")
+    @RequiresPermission("system:role:delete")
     public ApiResult deleteRole(@PathVariable("id") Integer id) {
         roleService.delete(id, Role.class);
 

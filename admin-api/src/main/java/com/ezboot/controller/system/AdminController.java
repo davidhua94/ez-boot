@@ -1,9 +1,8 @@
 package com.ezboot.controller.system;
 
-import com.ezboot.context.AdminContext;
 import com.ezboot.core.ApiResult;
 import com.ezboot.core.LocalMessage;
-import com.ezboot.core.annotation.HasPermission;
+import com.ezboot.core.annotation.RequiresPermission;
 import com.ezboot.core.base.PageResult;
 import com.ezboot.core.constant.GlobalConstants;
 import com.ezboot.core.util.JedisUtil;
@@ -78,7 +77,7 @@ public class AdminController {
     }
 
     @GetMapping("/list")
-    @HasPermission(needPermission = "system:admin:list")
+    @RequiresPermission("system:admin:list")
     public ApiResult list(AdminListQueryDTO queryDTO) {
         PageResult<AdminListDTO> adminList = adminService.pageList(queryDTO);
         return ApiResult.success(adminList);

@@ -1,7 +1,7 @@
 package com.ezboot.interceptor;
 
 import com.ezboot.context.AdminContext;
-import com.ezboot.core.annotation.HasPermission;
+import com.ezboot.core.annotation.RequiresPermission;
 import com.ezboot.core.exception.AccessDeniedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -41,7 +41,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
          * 拿到controller方法上的HasPermission注解，如果没有表示这个方法不需要任何权限
          */
         HandlerMethod handleMethod = (HandlerMethod) handler;
-        HasPermission annotation = handleMethod.getMethod().getAnnotation(HasPermission.class);
+        RequiresPermission annotation = handleMethod.getMethod().getAnnotation(RequiresPermission.class);
         if (annotation == null) {
             return true;
         }
@@ -49,7 +49,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         /**
          * 拿到这个方法需要的权限
          */
-        String needPermissions = annotation.needPermission();
+        String needPermissions = annotation.value();
         if (permissions.contains(needPermissions)) {
             return true;
         }

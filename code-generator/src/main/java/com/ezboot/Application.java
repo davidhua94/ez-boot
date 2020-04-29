@@ -12,7 +12,7 @@ public class Application {
         Config config = new Config();
         CodeGenerator codeGenerator = new CodeGenerator(config);
 
-        final String tableName = "t_student";
+        final String tableName = "t_system_admin";
         codeGenerator.generate(tableName);
     }
 }

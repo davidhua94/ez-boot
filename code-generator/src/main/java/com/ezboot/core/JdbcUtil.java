@@ -3,6 +3,8 @@ package com.ezboot.core;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author David hua
@@ -18,6 +20,12 @@ public class JdbcUtil {
     }
 
     public static Metadata getMetadata(String tableName, Connection connection) throws Exception {
+        Metadata metadata = new Metadata();
+        metadata.setTableName(tableName);
+        metadata.setTableComment(""); //?
+
+        List<Metadata.ColumnMetadata> columnMetadataList = new ArrayList<>();
+
         DatabaseMetaData metaData = connection.getMetaData();
         // 获取所有的表
         ResultSet tables = metaData.getTables(null, "%", tableName, new String[]{"TABLE"});
@@ -32,11 +40,17 @@ public class JdbcUtil {
                     String dbType = rs.getString("TYPE_NAME");
                     String columnSize = rs.getString("COLUMN_SIZE");
                     log.info("name={},type={},size={},remark={}", columnName, dbType, columnSize, remarks);
+                    Metadata.ColumnMetadata columnMetadata = new Metadata.ColumnMetadata();
+                    columnMetadata.setColumnName(columnName);
+                    columnMetadata.setColumnComment(remarks);
+                    columnMetadata.setColumnType(dbType.split(" ")[0]);
+                    columnMetadata.setPrimaryKey(false); //?
+                    columnMetadataList.add(columnMetadata);
                 }
             }
         }
-
-        return new Metadata();
+        metadata.setColumnList(columnMetadataList);
+        return metadata;
     }
 
     private static String getSchema(Connection connection) throws Exception {

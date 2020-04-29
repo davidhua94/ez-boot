@@ -26,6 +26,8 @@ public class TraceIdAspect {
     public void afterReturning(Object ret) {
         if (ret instanceof ApiResult) {
             ((ApiResult) ret).setRequestId(GlobalConstants.traceIdThreadLocal.get());
+        } else {
+            log.warn("Invalid Response Type, {}", ret);
         }
     }
 }

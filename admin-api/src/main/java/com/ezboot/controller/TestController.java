@@ -3,6 +3,7 @@ package com.ezboot.controller;
 import com.ezboot.core.ApiResult;
 import com.ezboot.core.CurrentAdmin;
 import com.ezboot.core.annotation.CurrentUser;
+import com.ezboot.core.thread.CustomThread;
 import com.ezboot.test.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class TestController {
     public ApiResult test(@CurrentUser CurrentAdmin user) {
         log.info("user ={}", user);
         log.info("test ===");
+        new CustomThread(() -> log.info("sub thread info")).start();
         return ApiResult.success();
     }
 
