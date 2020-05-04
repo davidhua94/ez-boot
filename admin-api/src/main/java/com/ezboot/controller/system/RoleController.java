@@ -10,6 +10,8 @@ import com.ezboot.system.role.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author David hua
  * @date 2019-11-10 11:41:10
@@ -48,11 +50,18 @@ public class RoleController {
         return ApiResult.success();
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/delete/{id}")
     @RequiresPermission("system:role:delete")
     public ApiResult deleteRole(@PathVariable("id") Integer id) {
         roleService.delete(id, Role.class);
 
         return ApiResult.success();
+    }
+
+    @GetMapping("/listOptions")
+//    @RequiresPermission("system:role:delete")
+    public ApiResult listRoleOptions() {
+        List<RoleDTO> roleDTOS = roleService.listOptions();
+        return ApiResult.success(roleDTOS);
     }
 }
