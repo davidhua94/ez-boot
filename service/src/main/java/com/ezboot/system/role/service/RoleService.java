@@ -23,4 +23,6 @@ public interface RoleService extends BaseService<Role> {
      * 根据管理员ID获取此管理员的角色
      */
     List<Integer> getRoleIdsByAdminId(Integer id);
+
+    List<RoleDTO> listOptions();
 }
