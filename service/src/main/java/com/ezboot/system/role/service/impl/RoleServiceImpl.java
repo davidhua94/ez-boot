@@ -9,6 +9,8 @@ import com.ezboot.system.role.dto.RoleListQueryDTO;
 import com.ezboot.system.role.entity.Role;
 import com.ezboot.system.role.repository.RoleRepository;
 import com.ezboot.system.role.service.RoleService;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,22 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
     @Override
     public List<Integer> getRoleIdsByAdminId(Integer id) {
         return roleRepository.findRoleIdsByAdminId(id);
+    }
+
+    @Override
+    public List<RoleDTO> listOptions() {
+        List<RoleDTO> result = Lists.newArrayList();
+        List<Role> roleList = roleRepository.findAllByEnabledIsTrue();
+        if(CollectionUtils.isEmpty(roleList)) {
+            return result;
+        }
+
+        for (Role r : roleList) {
+            RoleDTO roleDTO = new RoleDTO();
+            BeanUtils.copyProperties(r, roleDTO);
+            result.add(roleDTO);
+        }
+
+        return result;
     }
 }
