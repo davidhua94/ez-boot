@@ -22,4 +22,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer>,
     @Query(value = "SELECT r.id FROM t_system_admin_role ar LEFT JOIN t_system_role r ON ar.role_id = r.id WHERE ar.admin_id = ?1 and r.enabled = 1"
             , nativeQuery = true)
     List<Integer> findRoleIdsByAdminId(Integer id);
+
+    List<Role> findAllByEnabledIsTrue();
 }
