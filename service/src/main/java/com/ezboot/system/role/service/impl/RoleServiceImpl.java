@@ -10,6 +10,7 @@ import com.ezboot.system.role.entity.Role;
 import com.ezboot.system.role.repository.RoleRepository;
 import com.ezboot.system.role.service.RoleService;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,7 @@ import java.util.Optional;
 /**
  * @author wang
  */
+@Slf4j
 @Service
 public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleService {
 
