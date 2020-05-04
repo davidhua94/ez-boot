@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@Slf4j
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.ezboot")
 @EntityScan(basePackages = "com.ezboot")
