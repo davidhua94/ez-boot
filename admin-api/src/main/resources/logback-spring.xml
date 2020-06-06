@@ -23,7 +23,7 @@
    -->
     <property name="console-pattern" value="%d{YYYY-MM-dd HH:mm:ss.SSS} [%clr(%-5level)] --- [%thread{18} : %X{traceId}] %logger{36}-%line : %msg %n"/>
     <property name="file-pattern" value="%d{YYYY-MM-dd HH:mm:ss.SSS} [%-5level] --- [%thread{18} : %X{traceId}] %logger{36}-%line : %msg %n"/>
-    <property name="loggingPath" value="../logs" />
+    <property name="loggingPath" value="logs" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -89,6 +89,10 @@
     <!-- 框架代码全部用info -->
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.hibernate" level="INFO"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="springfox" level="INFO"/>
     <logger name="org.quartz" level="INFO"/>
 
