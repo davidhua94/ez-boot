@@ -14,9 +14,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author David hua
  * @date 2019-08-13 21:58
@@ -44,7 +41,6 @@ public class GlobalExceptionHandler {
                 message = messageUtil.getMessage(code);
             }
             apiResult = ApiResult.error(code, message);
-//            log.error("Something wrong, [code ={}, message={}]", apiResult.getCode(), apiResult.getMessage());
         } else {
             // 其他异常
             apiResult = ApiResult.error(MessageCode.INTERNAL_SERVER_ERROR,

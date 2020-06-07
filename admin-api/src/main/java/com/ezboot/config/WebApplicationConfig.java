@@ -3,6 +3,7 @@ package com.ezboot.config;
 import com.ezboot.core.CurrentAdminArgumentResolver;
 import com.ezboot.interceptor.AdminTokenInterceptor;
 import com.ezboot.interceptor.AuthInterceptor;
+import com.ezboot.interceptor.PerformanceInterceptor;
 import com.ezboot.interceptor.TraceIdInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -29,16 +30,20 @@ public class WebApplicationConfig implements WebMvcConfigurer {
     private AuthInterceptor authInterceptor;
 
     @Autowired
+    private PerformanceInterceptor performanceInterceptor;
+
+    @Autowired
     private CurrentAdminArgumentResolver currentAdminArgumentResolver;
 
     /**
-     * 拦截器顺序写  traceId-->验证是否登陆-->验证是否有权限
+     * 拦截器顺序写  traceId-->Performance-->验证是否登陆-->验证是否有权限
      * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 这个顺序在最前面
         registry.addInterceptor(traceIdInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(performanceInterceptor).addPathPatterns("/**");
 
         // token拦截
         registry.addInterceptor(adminTokenInterceptor)
