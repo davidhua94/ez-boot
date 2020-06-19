@@ -23,7 +23,7 @@
    -->
     <property name="console-pattern" value="%d{YYYY-MM-dd HH:mm:ss.SSS} [%clr(%-5level)] --- [%thread{18} : %X{traceId}] %logger{36}-%line : %msg %n"/>
     <property name="file-pattern" value="%d{YYYY-MM-dd HH:mm:ss.SSS} [%-5level] --- [%thread{18} : %X{traceId}] %logger{36}-%line : %msg %n"/>
-    <property name="loggingPath" value="/huakang-logs" />
+    <property name="loggingPath" value="logs" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
