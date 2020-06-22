@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author David hua
@@ -20,14 +23,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * todo
  */
 @Slf4j
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @Autowired
     private LocalMessage messageUtil;
 
     @ExceptionHandler(value = Throwable.class)
-    public ApiResult handleException(Throwable t) {
+    @ResponseBody
+    public ApiResult handleException(Throwable t, HttpServletRequest request) {
+        if (!"application/json".equals(request.getContentType())) {
+            return ApiResult.error(MessageCode.NOT_FOUND);
+        }
+
         /**
          * todo  记录错误日志到数据库
          */
