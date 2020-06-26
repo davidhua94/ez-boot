@@ -32,10 +32,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Throwable.class)
     @ResponseBody
     public ApiResult handleException(Throwable t, HttpServletRequest request) {
-        if (!"application/json".equals(request.getContentType())) {
-            return ApiResult.error(MessageCode.NOT_FOUND);
-        }
-
         /**
          * todo  记录错误日志到数据库
          */

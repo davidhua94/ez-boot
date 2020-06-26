@@ -64,8 +64,6 @@ public class AdminController {
 
     @GetMapping("/info")
     public ApiResult info() {
-        log.info("test log traceId");
-
         Map<String, Object> data = new HashMap<>();
         data.put("name", "admin");
         data.put("avatar", "test4");
