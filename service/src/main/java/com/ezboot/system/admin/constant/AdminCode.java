@@ -15,4 +15,7 @@ public class AdminCode extends MessageCode {
 
     public static final String ADMIN_NOT_LOGIN = "A0004";
 
+    public static final String TWO_PASSWORD_UN_MATCH = "A0005";
+    public static final String OLD_NEW_PASSWORD_SAME = "A0006";
+
 }

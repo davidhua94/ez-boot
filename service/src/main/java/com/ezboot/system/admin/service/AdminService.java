@@ -5,6 +5,7 @@ import com.ezboot.core.base.service.BaseService;
 import com.ezboot.system.admin.dto.AdminListDTO;
 import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
+import com.ezboot.system.admin.dto.ResetPasswordDTO;
 import com.ezboot.system.admin.entity.Admin;
 
 import java.util.Set;
@@ -24,4 +25,6 @@ public interface AdminService extends BaseService<Admin> {
     PageResult<AdminListDTO> pageList(AdminListQueryDTO queryDTO);
 
     Set<String> getPermissions(Integer adminId);
+
+    void resetPassword(ResetPasswordDTO resetPasswordDTO);
 }

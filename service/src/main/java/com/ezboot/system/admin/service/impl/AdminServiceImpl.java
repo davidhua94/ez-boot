@@ -13,10 +13,12 @@ import com.ezboot.system.admin.constant.AdminCode;
 import com.ezboot.system.admin.dto.AdminListDTO;
 import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
+import com.ezboot.system.admin.dto.ResetPasswordDTO;
 import com.ezboot.system.admin.entity.Admin;
 import com.ezboot.system.admin.exception.LoginException;
 import com.ezboot.system.admin.repository.AdminRepository;
 import com.ezboot.system.admin.service.AdminService;
+import com.ezboot.system.exception.AdminServiceException;
 import com.ezboot.system.permission.service.PermissionService;
 import com.ezboot.system.role.repository.RoleRepository;
 import com.ezboot.system.role.service.RoleService;
@@ -103,6 +105,20 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         }
 
         return permissionService.getPermissions(roleIds);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
+        if (!resetPasswordDTO.getOldPassword().equals(resetPasswordDTO.getOldPasswordConfirm())) {
+            throw new AdminServiceException(AdminCode.TWO_PASSWORD_UN_MATCH);
+        }
+
+        if (resetPasswordDTO.getOldPassword().equals(resetPasswordDTO.getNewPassword())) {
+            throw new AdminServiceException(AdminCode.OLD_NEW_PASSWORD_SAME);
+        }
+
+        // TODO
+
     }
 
     @Override

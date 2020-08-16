@@ -2,14 +2,16 @@ package com.ezboot.controller.system;
 
 import com.ezboot.core.ApiResult;
 import com.ezboot.core.LocalMessage;
+import com.ezboot.core.WebContext;
 import com.ezboot.core.annotation.RequiresPermission;
 import com.ezboot.core.base.PageResult;
 import com.ezboot.core.constant.GlobalConstants;
-import com.ezboot.core.util.JedisUtil;
 import com.ezboot.core.util.Assert;
+import com.ezboot.core.util.JedisUtil;
 import com.ezboot.system.admin.dto.AdminListDTO;
 import com.ezboot.system.admin.dto.AdminListQueryDTO;
 import com.ezboot.system.admin.dto.AdminLoginDTO;
+import com.ezboot.system.admin.dto.ResetPasswordDTO;
 import com.ezboot.system.admin.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,13 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author
- * hao
+ * @author hao
  */
 @Api
 @Slf4j
@@ -39,12 +39,12 @@ public class AdminController {
 
     /**
      * 管理员登陆
-     * @param loginRequest
-     * @return
+     * @param loginRequest Login Params
+     * @return token
      */
     @PostMapping("/login")
     @ApiOperation(value = "管理员登陆")
-    public ApiResult login(@RequestBody AdminLoginDTO loginRequest) {
+    public ApiResult<String> login(@RequestBody AdminLoginDTO loginRequest) {
         Assert.notBlank(loginRequest.getUsername(), localMessage.getMessage("MESS_USERNAME_NOT_BLANK"));
         Assert.notBlank(loginRequest.getPassword(), localMessage.getMessage("MESS_PASSWORD_NOT_BLANK"));
 
@@ -54,12 +54,18 @@ public class AdminController {
     }
 
     @PostMapping("/logout")
-    public ApiResult logout(HttpServletRequest request) {
-        String tokenValue = request.getHeader(GlobalConstants.ADMIN_TOKEN_KEY);
+    public ApiResult<Boolean> logout() {
+        String tokenValue = WebContext.getHeaderValue(GlobalConstants.ADMIN_TOKEN_KEY);
 
         JedisUtil.del(tokenValue);
 
         return ApiResult.success(Boolean.TRUE);
+    }
+
+    @PostMapping("/resetPassword")
+    public ApiResult<Boolean> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
+        adminService.resetPassword(resetPasswordDTO);
+        return ApiResult.success();
     }
 
     @GetMapping("/info")
