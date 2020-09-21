@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
  * @desc TODO
  */
 @Slf4j
-public class ThreadPoolFactory {
-    private ThreadPoolFactory(){}
+public class ModuledThreadPoolFactory {
+    private ModuledThreadPoolFactory(){}
 
     private static Map<String, ThreadPoolExecutor> threadPoolMap = new ConcurrentHashMap<>();
 
