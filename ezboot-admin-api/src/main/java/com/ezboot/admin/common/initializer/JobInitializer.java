@@ -1,0 +1,66 @@
+package com.ezboot.admin.common.initializer;
+
+import com.ezboot.admin.system.entity.TimeTask;
+import com.ezboot.admin.system.service.TimeTaskService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.quartz.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author David Hua
+ * @date 2020/1/8
+ * @desc
+ */
+@Slf4j
+@Component
+public class JobInitializer {
+
+    @Value("${ez-boot.server}")
+    private String currentServer;
+
+    @Autowired
+    private SchedulerFactoryBean schedulerFactoryBean;
+
+    @Autowired
+    private TimeTaskService taskService;
+
+    /**
+     * 应用启动时加载所有状态为enable的job
+     * @throws ClassNotFoundException
+     * @throws SchedulerException
+     */
+    public void init() throws ClassNotFoundException, SchedulerException {
+        List<TimeTask> enabledTaskByServer = taskService.getEnabledTaskByServer(currentServer);
+        if (CollectionUtils.isEmpty(enabledTaskByServer)) {
+            log.warn("No job need to be loaded , current server : {}", currentServer);
+            return;
+        }
+
+        for (TimeTask timeTask : enabledTaskByServer) {
+            if (timeTask.getServer().equals(currentServer)
+                && timeTask.isEnabled()) {
+                Scheduler scheduler = schedulerFactoryBean.getScheduler();
+
+                Class clazz = Class.forName(timeTask.getTaskClassName());
+                JobDetail jobDetail = JobBuilder.newJob(clazz)
+                        .withIdentity(timeTask.getTaskName()).build();
+
+                CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(timeTask.getCronExpression());
+
+                Trigger trigger = TriggerBuilder.newTrigger()
+                        .withIdentity(timeTask.getTaskName())
+                        .withSchedule(cronScheduleBuilder)
+                        .forJob(jobDetail).build();
+
+                scheduler.scheduleJob(jobDetail, trigger);
+                log.debug("load task [{}] success", timeTask.getTaskName());
+            }
+        }
+    }
+}

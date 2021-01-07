@@ -5,8 +5,9 @@
 
     <groupId>com.ezboot</groupId>
     <artifactId>ezboot-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
+
     <name>Easy-Boot</name>
     <description>Easy boot-快速开发平台</description>
 
@@ -26,10 +27,9 @@
     </properties>
 
     <modules>
-        <module>api</module>
-        <module>service</module>
-        <module>admin-api</module>
-        <module>code-generator</module>
+        <module>ezboot-admin-api</module>
+        <module>ezboot-code-generator</module>
+        <module>ezboot-core</module>
     </modules>
 
     <dependencies>
