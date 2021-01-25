@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- *
+ * @author david
+ * @desc bootstrap class
  */
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.ezboot")

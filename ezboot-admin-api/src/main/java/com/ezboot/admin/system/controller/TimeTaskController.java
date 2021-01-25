@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-08-13 22:09
  */
 @Slf4j
-@RequestMapping("/job")
 @RestController
+@RequestMapping("/job")
 public class TimeTaskController {
 
     @Autowired

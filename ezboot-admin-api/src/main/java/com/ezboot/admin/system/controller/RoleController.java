@@ -10,8 +10,6 @@ import com.ezboot.core.base.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @author David hua
  * @date 2019-11-10 11:41:10
@@ -61,7 +59,6 @@ public class RoleController {
     @GetMapping("/listOptions")
 //    @RequiresPermission("system:role:delete")
     public ApiResult listRoleOptions() {
-        List<RoleDTO> roleDTOS = roleService.listOptions();
-        return ApiResult.success(roleDTOS);
+        return ApiResult.success(roleService.listOptions());
     }
 }

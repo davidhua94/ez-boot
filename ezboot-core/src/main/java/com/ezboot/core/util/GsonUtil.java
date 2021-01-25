@@ -10,11 +10,8 @@ public class GsonUtil {
     private static Gson gson = null;
 
     static {
-        if (gson == null) {
-            gson = new Gson();
-        }
+        gson = new Gson();
     }
-
 
     public static String obj2Str(Object obj) {
         return gson.toJson(obj);
